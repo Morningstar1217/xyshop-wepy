@@ -1,0 +1,58 @@
+<style>
+.hotSellCom {
+  display: inline-block;
+  width: 250rpx;
+  height: 350rpx;
+  padding: 10rpx;
+  overflow: hidden;
+}
+
+.hotSellComImg {
+  width: 250rpx;
+  height: 250rpx;
+  overflow: hidden;
+  border: 1px solid #eee;
+  border-radius: 10rpx;
+}
+
+.hotSellComImg > image {
+  width: 250rpx;
+  height: 250rpx;
+}
+
+.hotSellComName,
+.hotSellComPrice {
+  font-size: 24rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+}
+
+.hotSellComPrice {
+  height: 40rpx;
+  line-height: 40rpx;
+  color: #d34353;
+}
+</style>
+
+<template>
+  <view class="hotSellCom" @tap="goBuy({{item.sku}})" id="{{item.sku}}">
+    <view class="hotSellComImg">
+      <image src="{{item.pic}}" />
+    </view>
+    <view class="hotSellComName">{{item.title}}</view>
+    <view class="hotSellComPrice">￥{{item.price}}</view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class HotSale extends wepy.component {
+  methods = {
+    goBuy(sku) {
+      this.$emit('goBuyChild', sku)
+    }
+  }
+}
+</script>

@@ -1,0 +1,285 @@
+<style>
+.container {
+  padding-bottom: 100rpx;
+}
+/* ************************联系客服图片*************************** */
+.kefu,
+.kefuImg {
+  width: 100%;
+  height: 200rpx;
+}
+
+/* *******************筛选********************* */
+.filterWrap {
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  background: #fff;
+}
+
+.filterManager {
+  float: right;
+  height: 80rpx;
+  line-height: 80rpx;
+  margin-right: 20rpx;
+  padding-right: 25rpx;
+}
+.filterManagered {
+  color: #d34353;
+}
+
+.typeOpenList,
+.statusOpenList {
+  position: absolute;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 20rpx 0;
+  background: #fff;
+  box-shadow: 0 5rpx 2rpx rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+
+.typeList,
+.statusList {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 350rpx;
+  height: 84rpx;
+  margin: 10rpx 0 0 10rpx;
+  line-height: 84rpx;
+  text-indent: 40rpx;
+  font-size: 26rpx;
+  background: #f2f2f2;
+}
+
+.hadSured {
+  background: #fff5f4;
+  color: #ed654f;
+}
+
+.hook {
+  width: 35rpx;
+  height: 35rpx;
+  vertical-align: middle;
+  margin-left: 120rpx;
+  margin-bottom: 4rpx;
+}
+
+/* ****************************底部自定义导航***************************** */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: #fff;
+  z-index: 999;
+  box-shadow: 0 -2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.couponBar {
+  line-height: 100rpx;
+  font-size: 40rpx;
+  color: #d34353;
+  text-align: center;
+  background: #f7f7f7;
+  width: 30%;
+  height: 100rpx;
+  background-image: linear-gradient(to right, #ea7e64, #d34353);
+}
+
+.collectionImg {
+  width: 58rpx;
+  height: 50rpx;
+  margin: 30rpx 0 0 84rpx;
+}
+
+.couponBar > image {
+  width: 54rpx;
+  height: 54rpx;
+  margin: 24rpx 0 0;
+  box-shadow: 1rpx 1rpx 2rpx rgba(0, 0, 0, 0.1);
+}
+
+.collection {
+  width: 70%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  color: #d34353;
+  text-align: center;
+  background: #f7f7f7;
+}
+
+.faved {
+  width: 40rpx;
+  height: 40rpx;
+  vertical-align: middle;
+  margin-top: -4rpx;
+}
+
+.wrap4 {
+  background: #fff;
+}
+
+/* *******************商品编辑************************* */
+.consolePlatform {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 100rpx;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 0 0 20rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  transition: 0.5s;
+}
+
+.selectedAll {
+  width: 160rpx;
+  height: 80rpx;
+}
+
+.selectedAll > icon {
+  margin-top: 16rpx;
+  vertical-align: top;
+}
+
+.delComs {
+  width: 160rpx;
+  text-align: center;
+  background: #ea7e64;
+}
+
+.noComs {
+  text-align: center;
+  height: 100rpx;
+  padding: 50rpx 0;
+  line-height: 100rpx;
+  font-size: 30rpx;
+}
+</style>
+
+<template lang="wxml">
+<view class="container">
+  <!-- 联系客服 -->
+  <view class="kefu">
+    <image src="/images/kefu.png" class="kefuImg" @tap="preview"/>
+  </view>
+  <!-- 商品类目筛选 -->
+  <view class="filterWrap">
+    <view class="filterManager {{consolePlat=='true'&&favs.length!=0?'filterManagered':''}}" @tap="filterManager">
+      {{consolePlat=='true'&&favs.length!=0?'完成':'管理'}}
+    </view>
+  </view>
+  <!-- 收藏商品列表 -->
+  <view class="wrap4 {{consolePlat=='true'&&favs.length!=0?'wrap4Change':''}}">
+    <repeat for="{{favs}}" key="index" index="index" item="item">
+        <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy" :favPage="favPage" :consolePlat="consolePlat" @changeChild.user='change' :index="index"></featuredCom>
+      </repeat>
+    <view class="noComs" wx:if="{{favs.length==0}}">暂时没有收藏哦~</view>
+  </view>
+  <!-- 商品编辑 -->
+  <view class="consolePlatform" wx:if="{{consolePlat=='true'&&favs.length!=0}}">
+    <view class="selectedAll" @tap="selectAll">全选</view>
+    <view class="delComs" @tap="deleteList">删除</view>
+  </view>
+  <!-- 底部导航栏 -->
+  <view class="tabbar">
+    <navigator class="couponBar" url="/pages/index">
+      <image src="/images/coupon.png" />
+    </navigator>
+    <view class="collection">
+      <image class="faved" src="/images/faved.png" />
+      我的收藏
+    </view>
+  </view>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import FeaturedCom from '../components/featuredComList'
+import GoBuy from '../mixins/goBuy'
+
+export default class extends wepy.page {
+  data = {
+    hadSure: 0,
+    statusCount: 0,
+    delFlag: false,
+    consolePlat: 'false',
+    selectAllStatus: false,
+    favs: [],
+    favPage: 'true'
+  }
+
+  onLoad() {
+    this.getFavs()
+  }
+  getFavs() {
+    var favs = wepy.getStorageSync('favs')
+    this.favs = favs
+  }
+
+  methods = {
+    filterManager: function(e) {
+      this.consolePlat = this.consolePlat === 'true' ? 'false' : 'true'
+    },
+    change(index) {
+      let favs = this.favs
+      const selected = favs[index].selected
+      favs[index].selected = !selected
+    },
+    selectAll(e) {
+      let selectAllStatus = this.selectAllStatus // 是否全选状态
+      selectAllStatus = !selectAllStatus
+      let favs = this.favs
+
+      for (let i = 0; i < favs.length; i++) {
+        favs[i].selected = selectAllStatus // 改变所有商品状态
+      }
+      this.selectAllStatus = selectAllStatus
+      this.favs = favs
+    },
+    deleteList(e) {
+      let favs = this.favs
+      let arr2 = []
+      for (let i = 0; i < favs.length; i++) {
+        if (!favs[i].selected) {
+          arr2.push(favs[i])
+        }
+        this.favs = arr2
+      }
+      wepy.setStorage({
+        key: 'favs',
+        data: arr2
+      })
+    },
+    preview: function() {
+      wepy.previewImage({
+        urls: ['http://pbn1t9k4c.bkt.clouddn.com/wxcode.jpg']
+      })
+    },
+    goBuy(sku) {
+      this.goBuy(sku)
+    }
+  }
+
+  components = {
+    featuredCom: FeaturedCom
+  }
+
+  mixins = [GoBuy]
+}
+</script>

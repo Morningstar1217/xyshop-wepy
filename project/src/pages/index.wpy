@@ -1,0 +1,498 @@
+<style>
+.container {
+  padding-bottom: 100rpx;
+}
+.header {
+  width: 100%;
+  height: 100rpx;
+  background-image: linear-gradient(to right, #ea7e64, #d34353);
+  position: relative;
+}
+
+.getCoupon {
+  width: 60rpx;
+  height: 60rpx;
+  display: inline-block;
+  margin: 20rpx 0 0 40rpx;
+}
+
+.couponImg {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.search {
+  position: absolute;
+  width: 90%;
+  height: 58rpx;
+  top: 50%;
+  margin-top: -28rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #fff;
+  border-radius: 30rpx;
+  margin-left: 5%;
+  font-size: 30rpx;
+  background-image: url('http://pbn1t9k4c.bkt.clouddn.com/search.png');
+  background-size: 40rpx;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-position: -50rpx;
+  text-align: left;
+  padding-left: 80rpx;
+}
+
+/* ***************************热销榜单********************* */
+.hotSellTitle,
+.featuredTitle {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 34 rpx;
+}
+
+.hotSellImg {
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sellTitle {
+  display: inline-block;
+  margin-left: 10rpx;
+}
+
+.hotSellComList {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/*********************** 轮播图 ***********************/
+.banner {
+  width: 100%;
+  height: 310rpx;
+}
+
+swiper-item {
+  width: 100%;
+  background-image: url();
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+/* ********************** 商品分类***********************/
+.section {
+  margin-top: 10rpx;
+  background: #fff;
+  width: 100%;
+}
+
+.menuWrap {
+  position: relative;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  z-index: 10;
+}
+
+.menuList {
+  position: absolute;
+  top: 50%;
+  margin-top: -50rpx;
+  display: inline-block;
+  width: 90%;
+  height: 100rpx;
+  box-sizing: border-box;
+  line-height: 100rpx;
+  padding-left: 20rpx;
+  font-size: 28rpx;
+  background: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  box-shadow: none;
+}
+
+.menuListOpen {
+  display: inline-block;
+  box-sizing: border-box;
+  line-height: 100rpx;
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+  font-size: 28rpx;
+  background: #fff;
+  width: 100%;
+  height: auto;
+  overflow: auto;
+  white-space: normal;
+  box-shadow: 0rpx 2rpx 2rpx rgba(0, 0, 0, 0.2);
+}
+
+.menuDetail {
+  display: inline-block;
+  height: 100rpx;
+  box-sizing: border-box;
+  text-align: center;
+  margin-right: 30rpx;
+}
+
+.selected {
+  border-bottom: 4rpx solid #d34353;
+}
+
+.showAll {
+  position: absolute;
+  display: inline-block;
+  width: 30rpx;
+  height: 30rpx;
+  top: 25rpx;
+  right: 20rpx;
+  padding: 10rpx;
+}
+
+.showAlled {
+  background-image: url('http://pbn1t9k4c.bkt.clouddn.com/alled.png');
+}
+
+/* *************************新手教程区***************************** */
+.studyTutorial {
+  background: transparent;
+}
+
+.studyTutorialImg {
+  width: 94%;
+  height: 110rpx;
+  vertical-align: middle;
+  margin-bottom: 20rpx;
+}
+
+/* **********************全部分类 展示区 ***********************/
+.showWrap {
+  padding: 20rpx 18rpx;
+  overflow: hidden;
+}
+
+.showLeft,
+.showRight {
+  float: left;
+  width: 345rpx;
+}
+
+.showRight {
+  margin-left: 20rpx;
+}
+
+.showLeft image,
+.showRight image {
+  width: 345rpx;
+  height: 284rpx;
+  vertical-align: top;
+}
+
+.showRight image {
+  height: 132rpx;
+}
+
+.showRightImg2 {
+  margin-top: 22rpx;
+}
+
+/* *****************************非全部分类**展示区************************* */
+
+.littleMenuWrap {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.littleMenu {
+  width: 120rpx;
+  height: 143rpx;
+  overflow: hidden;
+  margin-left: 5rpx;
+}
+
+.littleImg {
+  width: 90rpx;
+  height: 90rpx;
+}
+
+.littleName {
+  font-size: 28rpx;
+  text-align: center;
+}
+/* 条件筛选 */
+
+.filter {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 80rpx;
+  line-height: 58rpx;
+  padding: 10rpx 20rpx;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.filterList {
+  position: relative;
+  width: 25%;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.filterListed {
+  color: #ff4e66;
+}
+
+.price_l,
+.price_h {
+  position: absolute;
+  right: 28rpx;
+  border-left: 8rpx solid transparent;
+  border-right: 8rpx solid transparent;
+}
+
+.price_l {
+  top: 12rpx;
+  border-top: none;
+  border-bottom: 15rpx solid #707070;
+}
+
+.price_h {
+  top: 32rpx;
+  border-bottom: none;
+  border-top: 15rpx solid #707070;
+}
+
+.price_l_ed {
+  border-bottom-color: #d34353;
+}
+.price_h_ed {
+  border-top-color: #d34353;
+}
+</style>
+
+<template lang="wxml">
+<view class="container">
+  <!-- 顶部查券及搜索 -->
+  <view class="header">
+    <!-- <navigator class="getCoupon" url="/pages/quan/quan">
+      <image src="/images/coupon.png" class="couponImg" />
+    </navigator> -->
+    <input type="text" class="search" placeholder="输入商品名称查找" @tap="toSearch" />
+  </view>
+  <!-- 轮播图区域 -->
+  <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="banner" indicator-color="#fff" indicator-active-color="#d34353">
+    <block wx:for="{{imgUrls}}" wx:key="id">
+      <swiper-item style="background-image:url('{{item}}')"></swiper-item>
+    </block>
+  </swiper>
+  <!-- 分类 -->
+  <view class="section">
+    <view class="menuWrap">
+      <scroll-view scroll-x="true" class="menuList" wx:if="{{menuFlag}}">
+        <block wx:for="{{menu}}" wx:key="id">
+          <view class="menuDetail {{count==item.id?'selected':''}}" id="{{item.id}}" @tap="changeMenu" data-title="{{item.title}}">
+            {{item.title}}
+          </view>
+        </block>
+      </scroll-view>
+      <view class="menuListOpen" wx:else>
+        <block wx:for="{{menu}}" wx:key="id">
+          <view class="menuDetail {{count==item.id?'selected':''}}" id="{{item.id}}" @tap="changeMenu" data-title="{{item.title}}">
+            {{item.title}}
+          </view>
+        </block>
+      </view>
+      <image class="showAll" @tap="openMenu" src="/images/showall.png"></image>
+    </view>
+  </view>
+  <!-- 展示区 -->
+  <view class="showWrap" wx:if="{{count==0}}">
+    <view class="allMenu">
+      <!-- 新手教程 -->
+      <navigator class="studyTutorial" url="/pages/tutorial">
+        <image src="/images/study.png" class="studyTutorialImg" mode="aspectFit" />
+      </navigator>
+      <navigator class="showLeft" url="/pages/99sale?id=0">
+        <image src="/images/left.png" />
+      </navigator>
+      <view class="showRight">
+        <navigator url="/pages/99sale?id=1">
+          <image src="/images/right-1.png" />
+        </navigator>
+        <navigator url="/pages/99sale?id=2">
+          <image src="/images/right-2.png" class="showRightImg2" />
+        </navigator>
+      </view>
+    </view>
+  </view>
+  <!-- 热销榜单 -->
+  <view class="wrap3" wx:if="{{count==0}}">
+    <view class="hotSellTitle">
+      <image src="/images/hotsell.png" class="hotSellImg" />
+      <view class="sellTitle">热销榜单</view>
+    </view>
+    <scroll-view scroll-x="true" class="hotSellComList">
+      <repeat for="{{hotSellCom}}" key="index" index="index" item="item">
+        <hotsale :item="item" @goBuyChild.user="goBuy"></hotsale>
+      </repeat>
+    </scroll-view>
+  </view>
+  <!-- 精选商品 -->
+  <view class="wrap4">
+    <!-- 条件筛选 -->
+    <view class="filter">
+      <view class="filterList {{filterCount==0?'filterListed':''}}" id="0" @tap="changeFilter(0)">
+        最新
+      </view>
+      <view class="filterList {{filterCount==1?'filterListed':''}}" id="1" @tap="changeFilter(1)">
+        销量
+      </view>
+      <view class="filterList {{filterCount==2?'filterListed':''}}" id="2" @tap="changeFilter(2)">
+        价格
+        <view class="price_l {{filterCount==2&&!price_h?'price_l_ed':''}}"></view>
+        <view class="price_h {{filterCount==2&&price_h?'price_h_ed':''}}"></view>
+      </view>
+      <view class="filterList {{filterCount==3?'filterListed':''}}" id="3" @tap="changeFilter(3)">
+        人气
+      </view>
+    </view>
+    <view class="featuredWrap" @scrolltolower="getMoreGoodsList">
+      <repeat for="{{featuredComList}}" key="index" index="index" item="item">
+        <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy" :favPage="favPage"></featuredCom>
+      </repeat>
+    </view>
+    <!-- 返回顶部 -->
+    <view class="toTop" @tap="toTop" wx:if="{{showTop}}">︿</view>
+  </view>
+  <tabbar></tabbar>
+</view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tabbar from '../components/tabbar'
+import Hotsale from '../components/hotSale'
+import FeaturedCom from '../components/featuredComList'
+import Toast from '../mixins/toast'
+import Pagescroll from '../mixins/pageScroll'
+import GoBuy from '../mixins/goBuy'
+import GotCol from '../mixins/getCol'
+import ChangeFilter from '../mixins/changeFilter'
+
+export default class extends wepy.page {
+  data = {
+    imgUrls: ['http://pbn1t9k4c.bkt.clouddn.com/Tbbanner1.jpg'],
+    menu: [],
+    count: 0,
+    menuFlag: true,
+    currentPage: 1,
+    hotSellCom: [],
+    featuredComList: [],
+    favPage: 'false',
+    showTop: false,
+    filterCount: 0,
+    price_h: true
+  }
+
+  onLoad() {
+    this.getMenu()
+    this.getGoodsList(this.currentPage, this.count)
+    this.getHotSellCom()
+  }
+  methods = {
+    toSearch: function() {
+      wepy.navigateTo({
+        url: '/pages/search'
+      })
+    },
+    changeMenu: function(e) {
+      this.count = e.target.id
+      this.featuredComList = []
+      this.filterCount = 0
+      this.currentPage = 1
+      this.loadingToast()
+      this.getGoodsList(this.currentPage, this.count)
+    },
+    openMenu: function() {
+      this.menuFlag = !this.menuFlag
+    },
+    toTop: function() {
+      this.pageScrollTo()
+    },
+    getCol(sku, pic, title, price, marketprice) {
+      this.getCol(sku, pic, title, price, marketprice)
+    },
+    changeFilter: function(value) {
+      this.changeFilter(value)
+    },
+    goBuy(sku) {
+      this.goBuy(sku)
+    }
+  }
+  getMenu() {
+    const url = this.$parent.globalData.host + this.$parent.globalData.getcatelist
+    wepy.request(url).then(res =>
+      setTimeout(() => {
+        this.menu = res.data.data
+        this.$apply()
+      }, 100)
+    )
+  }
+  getGoodsList(page, cid, sort = 'latest') {
+    const url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+    wepy
+      .request({
+        url: url,
+        data: {
+          page: page,
+          cid: cid,
+          sort: sort
+        }
+      })
+      .then(res =>
+        setTimeout(() => {
+          const arr1 = this.featuredComList
+          const arr2 = res.data.data.list
+          arr1.push.apply(arr1, arr2)
+          this.featuredComList = arr1
+          this.hideToast()
+          this.$apply()
+        }, 100)
+      )
+  }
+  getHotSellCom() {
+    const url = this.$parent.globalData.host + this.$parent.globalData.getMiaoList
+    wepy.request(url).then(res =>
+      setTimeout(() => {
+        this.hotSellCom = res.data.data.list
+        this.$apply()
+      }, 100)
+    )
+  }
+  onPageScroll(e) {
+    if (e.scrollTop >= 500) {
+      this.showTop = true
+      this.$apply()
+    } else {
+      this.showTop = false
+      this.$apply()
+    }
+  }
+  onReachBottom() {
+    this.currentPage = this.currentPage + 1
+    this.getGoodsList(this.currentPage, this.count)
+  }
+  components = {
+    tabbar: Tabbar,
+    hotsale: Hotsale,
+    featuredCom: FeaturedCom
+  }
+  mixins = [Toast, Pagescroll, GoBuy, GotCol, ChangeFilter]
+}
+</script>

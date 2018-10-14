@@ -1,0 +1,63 @@
+<style>
+.wrap2,
+.showWrap,
+.wrap3,
+.wrap4 {
+  position: relative;
+  margin-top: 10rpx;
+  background: #fff;
+  width: 100%;
+}
+
+/* ****************************底部自定义导航***************************** */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background: #fff;
+  z-index: 999;
+  box-shadow: 0 -2rpx 4rpx rgba(0, 0, 0, 0.1);
+}
+
+.couponBar {
+  width: 70%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  color: #d34353;
+  text-align: center;
+  background: #f7f7f7;
+}
+
+.collection {
+  width: 30%;
+  height: 100rpx;
+  background-image: linear-gradient(to right, #ea7e64, #d34353);
+}
+
+.collectionImg {
+  width: 58rpx;
+  height: 50rpx;
+  margin: 30rpx 0 0 84rpx;
+}
+</style>
+
+<template lang="wxml">
+    <view class="tabbar">
+      <view class="couponBar">大额优惠券</view>
+      <navigator class="collection" url="/pages/fav">
+        <image src="/images/fav.png" class="collectionImg" />
+      </navigator>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+
+export default class Tabbar extends wepy.component {}
+</script>

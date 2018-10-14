@@ -1,0 +1,51 @@
+<style>
+page {
+  color: #333;
+  background: #f2f2f2;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.navigator-hover {
+  background: #fff;
+}
+</style>
+
+<script>
+import wepy from 'wepy'
+import 'wepy-async-function'
+
+export default class extends wepy.app {
+  config = {
+    pages: ['pages/index', 'pages/searchResult', 'pages/fav', 'pages/99sale', 'pages/search', 'pages/tutorial'],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#fff',
+      navigationBarTitleText: '大白微商城',
+      navigationBarTextStyle: 'black',
+      onReachBottomDistance: 50
+    }
+  }
+  constructor() {
+    super()
+    this.use('promisify')
+  }
+  globalData = {
+    host: 'https://www.97youmeitao.com/',
+    getcatelist: 'api.php/quan.tao/getcatelist',
+    getGoodsList: 'api.php/quan.tao/getGoodsList',
+    getRenqiList: 'api.php/quan.tao/getRenqiList',
+    getCouponUrl: 'api.php/quan.tao/getCouponUrl',
+    getNineList: 'api.php/quan.tao/getNineList',
+    getMiaoList: 'api.php/quan.tao/getMiaoList',
+    getZhiboList: 'api.php/quan.tao/getZhiboList',
+    getListByKeyword: 'api.php/quan.tao/getListByKeyword',
+    favs: []
+  }
+}
+</script>

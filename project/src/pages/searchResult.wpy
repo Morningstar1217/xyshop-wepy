@@ -1,0 +1,186 @@
+<style>
+/* *********************顶部搜索区*********************** */
+.header {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.search {
+  width: 600rpx;
+  height: 58rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  background-image: url('http://pbn1t9k4c.bkt.clouddn.com/search.png');
+  background-size: 40rpx;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-position: -50rpx;
+  text-align: left;
+  padding-left: 80rpx;
+  vertical-align: middle;
+}
+
+.cancel {
+  margin-left: 30rpx;
+  font-size: 32rpx;
+}
+.noGoods {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 40rpx 0;
+  text-align: center;
+  font-size: 30rpx;
+}
+</style>
+
+<template lang="wxml">
+  <view class="container">
+    <!-- 顶部搜索区 -->
+    <view class="header">
+      <input type="text" class="search" placeholder="{{inputValue}}" @tap="toSearch" />
+      <text class="cancel" @tap="returnIndex">取消</text>
+    </view>
+    <!-- 商品搜索结果区 -->
+    <view class="wrap4">
+      <repeat for="{{featuredComList}}" key="index" index="index" item="item">
+        <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy" :favPage="favPage"></featuredCom>
+      </repeat>
+      <view class="noGoods" wx:if="{{nogoods}}">暂时没有商品~先看看别的吧~</view>
+      <!-- 返回顶部 -->
+      <view class="toTop" @tap="toTop" wx:if="{{showTop}}">︿</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tabbar from '../components/tabbar'
+import FeaturedCom from '../components/featuredComList'
+import Toast from '../mixins/toast'
+import PageScroll from '../mixins/pageScroll'
+import Gobuy from '../mixins/goBuy'
+import ChangeFilter from '../mixins/changeFilter'
+
+export default class extends wepy.page {
+  onLoad(options) {
+    this.loadingToast()
+    this.inputValue = options.value
+    this.getGoodsList()
+  }
+
+  data = {
+    currentPage: 1,
+    featuredComList: [],
+    favPage: 'false',
+    showTop: false,
+    inputValue: '',
+    nogoods: false,
+    filterCount: 0,
+    price_h: true
+  }
+
+  methods = {
+    toSearch: function() {
+      wepy.navigateTo({
+        url: '/pages/search'
+      })
+    },
+    getCol(sku, pic, title, price, marketprice) {
+      var favs = wepy.getStorageSync('favs')
+      if (!favs) {
+        favs = []
+      }
+      const arr2 = []
+      const col = {
+        sku: sku,
+        pic: pic,
+        title: title,
+        price: price,
+        market_price: marketprice
+      }
+      favs.forEach(ele => {
+        if (sku !== ele.sku) {
+          arr2.unshift(ele)
+        }
+      })
+      arr2.unshift(col)
+      wepy.setStorage({
+        key: 'favs',
+        data: arr2
+      })
+      this.favSuccess()
+    },
+    goBuy(sku) {
+      this.goBuy(sku)
+    },
+    returnIndex: function() {
+      wepy.navigateBack()
+    },
+    toTop: function() {
+      this.pageScrollTo()
+    },
+    changeFilter(value) {
+      this.changeFilter(value)
+    }
+  }
+
+  getGoodsList() {
+    var historys = wepy.getStorageSync('historys')
+    if (!historys) {
+      historys = []
+    }
+    historys.unshift(this.inputValue)
+    wepy.setStorage({
+      key: 'historys',
+      data: historys
+    })
+    const url = this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
+    wepy
+      .request({
+        url: url,
+        data: {
+          page: this.currentPage,
+          kw: this.inputValue
+        }
+      })
+      .then(res =>
+        setTimeout(() => {
+          const arr1 = this.featuredComList
+          const arr2 = res.data.data.list
+          arr1.push.apply(arr1, arr2)
+          this.featuredComList = arr1
+          this.hideToast()
+          this.$apply()
+        }, 100)
+      )
+      .catch(
+        setTimeout(() => {
+          this.nogoods = true
+        }, 100)
+      )
+  }
+  onPageScroll(e) {
+    if (e.scrollTop >= 500) {
+      this.showTop = true
+      this.$apply()
+    } else {
+      this.showTop = false
+      this.$apply()
+    }
+  }
+  onReachBottom() {
+    this.currentPage = this.currentPage + 1
+    this.getGoodsList()
+  }
+
+  components = {
+    tabbar: Tabbar,
+    featuredCom: FeaturedCom
+  }
+
+  mixins = [Toast, PageScroll, Gobuy, ChangeFilter]
+}
+</script>

@@ -1,0 +1,143 @@
+<style>
+.wrap4 {
+  position: relative;
+  margin-top: 10rpx;
+  background: #fff;
+  width: 100%;
+}
+.featuredTitle {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 34 rpx;
+}
+.headerAd {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding: 20rpx 15rpx;
+}
+
+.today,
+.timeLimit {
+  width: 345rpx;
+  height: 140rpx;
+  vertical-align: top;
+}
+</style>
+
+<template lang="wxml">
+  <view class="container">
+    <!-- 顶部推荐 -->
+    <view class="headerAd">
+      <navigator url="/pages/99sale?id=1" hover-class="navigator-hover" wx:if="{{id==0}}">
+        <image class="today" src="/images/right-1.png" />
+      </navigator>
+      <navigator url="/pages/99sale?id=0" wx:if="{{id == 1 || id==2}}">
+        <image class="today" src="/images/left-small.png" />
+      </navigator>
+      <navigator url="/pages/99sale?id=2" wx:if="{{id==0 || id==1}}">
+        <image class="timeLimit" src="/images/right-2.png" />
+      </navigator>
+      <navigator url="/pages/99sale?id=1" wx:if="{{id==2}}">
+        <image class="timeLimit" src="/images/right-1.png" />
+      </navigator>
+    </view>
+    <!-- 精选商品 -->
+    <view class="wrap4">
+      <view class="featuredTitle">精选商品</view>
+      <view class="featuredWrap" @scrolltolower="getMoreGoodsList">
+        <repeat for="{{featuredComList}}" key="index" index="index" item="item">
+          <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy"></featuredCom>
+        </repeat>
+      </view>
+      <!-- 返回顶部 -->
+      <view class="toTop" bind:tap="toTop" wx:if="{{showTop}}">︿</view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import FeaturedComList from '../components/featuredComList'
+import PageScroll from '../mixins/pageScroll'
+import Toast from '../mixins/toast'
+import GoBuy from '../mixins/goBuy'
+import GetCol from '../mixins/getCol'
+
+export default class extends wepy.page {
+  data = {
+    currentPage: 1,
+    featuredComList: [],
+    favPage: false,
+    showTop: false,
+    id: 1,
+    url: ''
+  }
+
+  onLoad(options) {
+    this.id = options.id
+    this.getGoodsList(this.currentPage)
+  }
+
+  getGoodsList(page) {
+    if (this.id === '0') {
+      this.url = this.$parent.globalData.host + this.$parent.globalData.getNineList
+    } else if (this.id === '1') {
+      this.url = this.$parent.globalData.host + this.$parent.globalData.getRenqiList
+    } else {
+      this.url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+    }
+    wepy
+      .request({
+        url: this.url,
+        data: {
+          page: page
+        }
+      })
+      .then(res =>
+        setTimeout(() => {
+          const arr1 = this.featuredComList
+          const arr2 = res.data.data.list
+          arr1.push.apply(arr1, arr2)
+          this.featuredComList = arr1
+          this.hideToast()
+          this.$apply()
+        }, 100)
+      )
+  }
+  onPageScroll(e) {
+    if (e.scrollTop >= 500) {
+      this.showTop = true
+      this.$apply()
+    } else {
+      this.showTop = false
+      this.$apply()
+    }
+  }
+  onReachBottom() {
+    this.currentPage = this.currentPage + 1
+    this.getGoodsList(this.currentPage, this.count)
+  }
+
+  methods = {
+    toTop: function() {
+      this.pageScrollTo()
+    },
+    getCol(sku, pic, title, price, marketprice) {
+      this.getCol(sku, pic, title, price, marketprice)
+    },
+    goBuy(sku) {
+      this.goBuy(sku)
+    }
+  }
+
+  components = {
+    featuredCom: FeaturedComList
+  }
+
+  mixins = [Toast, PageScroll, GoBuy, GetCol]
+}
+</script>

@@ -1,0 +1,209 @@
+<style>
+/* *********************顶部搜索区*********************** */
+.header {
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.search {
+  width: 600rpx;
+  height: 58rpx;
+  box-sizing: border-box;
+  display: inline-block;
+  background: #fff;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+  background-image: url('http://pbn1t9k4c.bkt.clouddn.com/search.png');
+  background-size: 40rpx;
+  background-origin: content-box;
+  background-repeat: no-repeat;
+  background-position: -50rpx;
+  text-align: left;
+  padding-left: 80rpx;
+  vertical-align: middle;
+}
+
+.cancel {
+  margin-left: 30rpx;
+  font-size: 32rpx;
+}
+/*************************历史纪录展示区*******************************  */
+.historyShow {
+  width: 100%;
+  margin-top: 10rpx;
+  background: #fff;
+}
+
+.history,
+.showAllHistory {
+  box-sizing: border-box;
+  width: 100%;
+  height: 80rpx;
+  padding: 0 20rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.history view {
+  display: inline-block;
+}
+
+.timeIcon {
+  display: inline-block;
+  width: 50rpx;
+  height: 50rpx;
+  vertical-align: middle;
+  margin-top: -55rpx;
+}
+
+.historyName {
+  width: 520rpx;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete {
+  width: 100rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  float: right;
+  text-align: center;
+}
+
+.showAllHistory {
+  text-align: center;
+  font-size: 28rpx;
+  color: #aaa;
+}
+/* ***********************热搜*********************************** */
+
+.hotSearch {
+  margin-top: 10rpx;
+  width: 100%;
+  background: #fff;
+}
+.hotSellTitle {
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 34 rpx;
+}
+
+.hotSellImg {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 40rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sellTitle {
+  display: inline-block;
+  margin-left: 10rpx;
+  font-size: 28rpx;
+}
+
+.hotSearchWrap {
+  width: 100%;
+  font-size: 28rpx;
+  border-top: 1px solid #f2f2f2;
+}
+
+.hotsearch {
+  display: inline-block;
+  margin-left: 50rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  padding: 30rpx 0;
+}
+</style>
+
+<template>
+  <view class="container">
+    <!-- 顶部搜索区 -->
+    <view class="header">
+      <input type="text" class="search" placeholder="输入商品名称查找" confirm-type="search" @confirm="search('{{inputValue}}')" @input="remSearch" focus="true" />
+      <text class="cancel" @tap="returnIndex">取消</text>
+    </view>
+    <!-- 历史纪录展示区 -->
+    <view class="historyShow">
+      <repeat for="{{historys}}" key="index" index="index" item="item">
+        <view class="history">
+          <image class="timeIcon" src="/images/timeIcon.png" />
+          <view class="historyName" @tap="tosearch('{{item}}')">{{item}}</view>
+          <view class="delete" @tap="deleteHistory('{{index}}')">x</view>
+        </view>
+      </repeat>
+      <view class="showAllHistory">{{historys!=0?'全部搜索记录':'当前记录为空'}}</view>
+    </view>
+    <!-- 热搜 -->
+    <view class="hotSearch">
+      <view class="hotSellTitle">
+        <image src="/images/hotsell.png" class="hotSellImg" />
+        <view class="sellTitle">热搜</view>
+      </view>
+      <view class="hotSearchWrap">
+        <block wx:for="{{hotSearch}}" wx:key="id">
+          <view class="hotsearch" @tap="tosearch('{{item}}')">{{item}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from 'wepy'
+import Tabbar from '../components/tabbar'
+
+export default class extends wepy.page {
+  data = {
+    historys: [],
+    hotSearch: ['女装', '男装', '手机壳', '耳机', '箱包', '数码'],
+    inputValue: ''
+  }
+  methods = {
+    returnIndex: function() {
+      wepy.navigateBack()
+    },
+    deleteHistory(index) {
+      var historys = this.historys
+      historys.splice(index, 1)
+      this.historys = historys
+      wepy.setStorage({
+        key: 'historys',
+        data: historys
+      })
+    },
+    remSearch: function(e) {
+      this.inputValue = e.detail.value
+    },
+    tosearch: function(value) {
+      this.methods.search(value)
+    },
+    search(value) {
+      value = value.length === 0 ? '女装' : value
+      wepy.navigateTo({
+        url: './searchResult?value=' + value
+      })
+    }
+  }
+
+  onShow() {
+    this.getHistorys()
+  }
+
+  getHistorys() {
+    var historys = wepy.getStorageSync('historys')
+    if (historys.length === 0) {
+      historys = []
+    }
+    this.historys = historys
+  }
+
+  components = {
+    tabbar: Tabbar
+  }
+}
+</script>

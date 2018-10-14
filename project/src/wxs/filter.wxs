@@ -1,0 +1,5 @@
+module.exports = {
+  toInt: function(value) {
+    return Math.floor(value.toFixed(2))
+  }
+}
