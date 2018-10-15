@@ -308,7 +308,7 @@ swiper-item {
           </view>
         </block>
       </view>
-      <image class="showAll" @tap="openMenu" src="/images/showall.png"></image>
+      <image class="showAll" @tap="openMenu" src="../images/showall.png"></image>
     </view>
   </view>
   <!-- 展示区 -->
