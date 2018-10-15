@@ -6,7 +6,7 @@
 
 <template>
   <view class="container">
-    <image src="http://pbn1t9k4c.bkt.clouddn.com/tutorial.jpg" class="tutorialImg" mode="widthFix" />
+    <image src="http://pbn1t9k4c.bkt.clouddn.com/jiaocheng.jpg" class="tutorialImg" mode="widthFix" />
   </view>
 </template>
 

@@ -289,7 +289,7 @@ swiper-item {
   <!-- 轮播图区域 -->
   <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="banner" indicator-color="#fff" indicator-active-color="#d34353">
     <block wx:for="{{imgUrls}}" wx:key="id">
-      <swiper-item style="background-image:url('{{item}}')"></swiper-item>
+      <swiper-item style="background-image:url('{{item}}')" @tap="showQr"></swiper-item>
     </block>
   </swiper>
   <!-- 分类 -->
@@ -434,6 +434,11 @@ export default class extends wepy.page {
     },
     goBuy(sku) {
       this.goBuy(sku)
+    },
+    showQr() {
+      wepy.previewImage({
+        urls: ['http://pbn1t9k4c.bkt.clouddn.com/wxcode.jpg']
+      })
     }
   }
   getMenu() {

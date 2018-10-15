@@ -137,14 +137,6 @@
   height: 60rpx;
 }
 
-.flash,
-.eye {
-  width: 30rpx;
-  height: 30rpx;
-  margin-top: 15rpx;
-  vertical-align: top;
-}
-
 .tags {
   display: flex;
   flex-direction: row;
@@ -175,6 +167,7 @@
 }
 
 .toggle {
+  position: relative;
   box-sizing: border-box;
   margin-top: 5rpx;
   width: 130rpx;
@@ -192,7 +185,11 @@
 }
 
 .eye {
-  margin-top: 10rpx;
+  position: absolute;
+  top: 10rpx;
+  right: 18rpx;
+  width: 30rpx;
+  height: 30rpx;
 }
 
 .tutorialImg {
@@ -207,15 +204,14 @@
 }
 
 .tutorialS {
-  width: 512rpx;
-  height: 485rpx;
+  width: 460rpx;
+  height: 565rpx;
   margin: 0 auto;
 }
 
 .tutorialSi {
-  width: 512rpx;
-  height: 485rpx;
   text-align: center;
+  background-size: cover;
 }
 
 .swiper-image {
@@ -379,11 +375,11 @@
       <image class="quanHeader" src="/images/quanHeader.png" mode="aspectFit" />
       <image class="leftArrow" src="/images/leftArrow.png" @tap="toLeft"></image>
       <swiper indicator-dots="true" interval="5000" duration="500" indicator-active-color="#eb3f2b" current="{{current}}" class="tutorialS" @change="touchChange">
-        <block wx:for="{{stepImgs}}" wx:key="id">
-          <swiper-item class="tutorialSi">
-            <image class="swiper-image" src="{{item}}" mode="aspectFit" />
+        <repeat for="{{stepImgs}}" wx:key="id">
+          <swiper-item class="tutorialSi" style="background-image:url('{{item}}')">
+            <!-- <image class="swiper-image" src="{{item}}" mode="aspectFit" /> -->
           </swiper-item>
-        </block>
+        </repeat>
       </swiper>
       <image class="rightArrow" src="/images/rightArrow.png" @tap="toRight"></image>
     </view>
@@ -420,13 +416,13 @@ export default class extends wepy.page {
     hotSearch: ['女装', '男装', '手机壳', '耳机', '箱包', '数码'],
     inputValue: '',
     stepImgs: [
-      '/images/step1.png',
-      '/images/step2.png',
-      '/images/step3.png',
-      '/images/step4.png'
+      'http://pbn1t9k4c.bkt.clouddn.com/step1.png',
+      'http://pbn1t9k4c.bkt.clouddn.com/step2.png',
+      'http://pbn1t9k4c.bkt.clouddn.com/step3.png',
+      'http://pbn1t9k4c.bkt.clouddn.com/step4.png'
     ],
     current: 0,
-    tutorialFlag: false,
+    tutorialFlag: true,
     hotSellCom: []
   }
 
