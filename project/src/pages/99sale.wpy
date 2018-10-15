@@ -49,8 +49,8 @@
     <view class="wrap4">
       <view class="featuredTitle">精选商品</view>
       <view class="featuredWrap" @scrolltolower="getMoreGoodsList">
-        <repeat for="{{featuredComList}}" key="index" index="index" item="item">
-          <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy"></featuredCom>
+        <repeat for="{{featuredComList}}" key="index" index="index" item="item" >
+          <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy" :favPage="favPage"></featuredCom>
         </repeat>
       </view>
       <!-- 返回顶部 -->
@@ -71,7 +71,7 @@ export default class extends wepy.page {
   data = {
     currentPage: 1,
     featuredComList: [],
-    favPage: false,
+    favPage: 'false',
     showTop: false,
     id: 1,
     url: ''
@@ -84,11 +84,14 @@ export default class extends wepy.page {
 
   getGoodsList(page) {
     if (this.id === '0') {
-      this.url = this.$parent.globalData.host + this.$parent.globalData.getNineList
+      this.url =
+        this.$parent.globalData.host + this.$parent.globalData.getNineList
     } else if (this.id === '1') {
-      this.url = this.$parent.globalData.host + this.$parent.globalData.getRenqiList
+      this.url =
+        this.$parent.globalData.host + this.$parent.globalData.getRenqiList
     } else {
-      this.url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+      this.url =
+        this.$parent.globalData.host + this.$parent.globalData.getGoodsList
     }
     wepy
       .request({
