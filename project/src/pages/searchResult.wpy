@@ -85,7 +85,7 @@ export default class extends wepy.page {
   methods = {
     toSearch: function() {
       wepy.navigateTo({
-        url: '/pages/search'
+        url: '/pages/quan'
       })
     },
     getCol(sku, pic, title, price, marketprice) {
@@ -137,7 +137,8 @@ export default class extends wepy.page {
       key: 'historys',
       data: historys
     })
-    const url = this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
+    const url =
+      this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
     wepy
       .request({
         url: url,

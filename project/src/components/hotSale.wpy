@@ -1,4 +1,36 @@
 <style>
+.wrap3 {
+  position: relative;
+  margin-top: 10rpx;
+  background: #fff;
+  width: 100%;
+}
+
+.hotSellTitle {
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 34 rpx;
+}
+
+.hotSellImg {
+  width: 40rpx;
+  height: 40rpx;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sellTitle {
+  display: inline-block;
+  margin-left: 10rpx;
+}
+
+.hotSellComList {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .hotSellCom {
   display: inline-block;
   width: 250rpx;
@@ -35,7 +67,7 @@
 }
 </style>
 
-<template>
+<template lang='wxml'>
   <view class="hotSellCom" @tap="goBuy({{item.sku}})" id="{{item.sku}}">
     <view class="hotSellComImg">
       <image src="{{item.pic}}" />

@@ -31,6 +31,7 @@
   display: inline-block;
   background: #fff;
   border-radius: 30rpx;
+  -webkit-border-radius: 30rpx;
   margin-left: 5%;
   font-size: 30rpx;
   background-image: url('http://pbn1t9k4c.bkt.clouddn.com/search.png');
@@ -408,7 +409,7 @@ export default class extends wepy.page {
   methods = {
     toSearch: function() {
       wepy.navigateTo({
-        url: '/pages/search'
+        url: '/pages/quan'
       })
     },
     changeMenu: function(e) {
@@ -436,7 +437,8 @@ export default class extends wepy.page {
     }
   }
   getMenu() {
-    const url = this.$parent.globalData.host + this.$parent.globalData.getcatelist
+    const url =
+      this.$parent.globalData.host + this.$parent.globalData.getcatelist
     wepy.request(url).then(res =>
       setTimeout(() => {
         this.menu = res.data.data
@@ -445,7 +447,8 @@ export default class extends wepy.page {
     )
   }
   getGoodsList(page, cid, sort = 'latest') {
-    const url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+    const url =
+      this.$parent.globalData.host + this.$parent.globalData.getGoodsList
     wepy
       .request({
         url: url,
@@ -467,7 +470,8 @@ export default class extends wepy.page {
       )
   }
   getHotSellCom() {
-    const url = this.$parent.globalData.host + this.$parent.globalData.getMiaoList
+    const url =
+      this.$parent.globalData.host + this.$parent.globalData.getMiaoList
     wepy.request(url).then(res =>
       setTimeout(() => {
         this.hotSellCom = res.data.data.list
