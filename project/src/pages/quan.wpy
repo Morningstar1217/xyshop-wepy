@@ -337,7 +337,7 @@
   <view class="header">
     <view class="searchWrap">
       <input class="search" type="text" placeholder="输入关键词或商品链接" confirm-type="search" @confirm="search('{{inputValue}}')" @input="remSearch" focus="true" />
-      <view class="searchBtn">搜索</view>
+      <view class="searchBtn" @tap="search('{{inputValue}}')">搜索</view>
     </view>
   </view>
   <!-- 历史纪录展示区 -->
