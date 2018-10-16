@@ -7,6 +7,7 @@ export default class ChangeFilter extends wepy.mixin {
     this.currentPage = 1
     switch (value) {
       case '0':
+        this.sort = 'latest'
         this.getGoodsList(this.currentPage, this.count, this.sort)
         this.price_h = true
         break

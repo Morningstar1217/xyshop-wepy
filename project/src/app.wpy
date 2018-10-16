@@ -56,7 +56,7 @@ export default class extends wepy.app {
     favs: [],
     shareProfile: '大白微商城\n一个不允许你不省钱的小程序',
     shareImg:
-      'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1538135479434&di=1e26798f3abe2b4feb34a3a47d9d9fcf&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F019e98554209ab0000019ae9764c6f.jpg',
+      'http://pbn1t9k4c.bkt.clouddn.com/shareImg.jpg',
     sharePath: 'pages/index'
   }
 }
