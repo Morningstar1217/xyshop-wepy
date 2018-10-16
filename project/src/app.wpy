@@ -54,9 +54,9 @@ export default class extends wepy.app {
     getZhiboList: 'api.php/quan.tao/getZhiboList',
     getListByKeyword: 'api.php/quan.tao/getListByKeyword',
     favs: [],
-    shareProfile: '大白微商城\n一个不允许你不省钱的小程序',
+    shareProfile: '一个不允许你不省钱的小程序',
     shareImg:
-      'http://pbn1t9k4c.bkt.clouddn.com/shareImg.jpg',
+      'http://pbn1t9k4c.bkt.clouddn.com/tbshareImg.jpg',
     sharePath: 'pages/index'
   }
 }

@@ -182,7 +182,7 @@ export default class extends wepy.page {
     return {
       title: this.$parent.globalData.shareProfile,
       path: 'pages/searchResult?value=' + this.inputValue,
-      // imageUrl: this.$parent.globalData.shareImg,
+      imageUrl: this.$parent.globalData.shareImg,
       success: function(res) {},
       fail: function(res) {
         // 转发失败
