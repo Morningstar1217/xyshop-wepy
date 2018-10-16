@@ -12,7 +12,7 @@ export default class Toast extends wepy.mixin {
     wepy.showToast({
       title: '拼命加载中...',
       icon: 'loading',
-      duration: 1500
+      duration: 3000
     })
   }
   hideToast () {

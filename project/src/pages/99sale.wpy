@@ -125,6 +125,17 @@ export default class extends wepy.page {
     this.getGoodsList(this.currentPage, this.count)
   }
 
+  onShareAppMessage() {
+    return {
+      title: this.$parent.globalData.shareProfile,
+      path: 'pages/99sale?id=' + this.id,
+      success: function(res) {},
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  }
+
   methods = {
     toTop: function() {
       this.pageScrollTo()

@@ -385,6 +385,7 @@ import Pagescroll from '../mixins/pageScroll'
 import GoBuy from '../mixins/goBuy'
 import GotCol from '../mixins/getCol'
 import ChangeFilter from '../mixins/changeFilter'
+import Share from '../mixins/share'
 
 export default class extends wepy.page {
   data = {
@@ -497,11 +498,24 @@ export default class extends wepy.page {
     this.currentPage = this.currentPage + 1
     this.getGoodsList(this.currentPage, this.count)
   }
+
+  onShareAppMessage() {
+    return {
+      title: this.$parent.globalData.shareProfile,
+      path: this.$parent.globalData.sharePath,
+      imageUrl: this.$parent.globalData.shareImg,
+      success: function(res) {},
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  }
+
   components = {
     tabbar: Tabbar,
     hotsale: Hotsale,
     featuredCom: FeaturedCom
   }
-  mixins = [Toast, Pagescroll, GoBuy, GotCol, ChangeFilter]
+  mixins = [Toast, Pagescroll, GoBuy, GotCol, ChangeFilter, Share]
 }
 </script>

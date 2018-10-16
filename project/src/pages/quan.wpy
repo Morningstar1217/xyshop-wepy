@@ -502,6 +502,18 @@ export default class extends wepy.page {
     )
   }
 
+  onShareAppMessage() {
+    return {
+      title: this.$parent.globalData.shareProfile,
+      path: this.$parent.globalData.sharePath,
+      imageUrl: this.$parent.globalData.shareImg,
+      success: function(res) {},
+      fail: function(res) {
+        // 转发失败
+      }
+    }
+  }
+
   components = {
     hotsale: hotSale
   }
