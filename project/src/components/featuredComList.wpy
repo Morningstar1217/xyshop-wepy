@@ -182,8 +182,7 @@
     <view class="featuredComDetail {{consolePlat=='true'?'consoleIng':''}}">
       <view class="featuredName">{{item.title}}</view>
       <view class="goHongWrap">
-        <view class="goHong">记得去“大白HONG登记哦~”</view>
-        <view class="goHong">免费得精美礼品~</view>
+        <view class="goHong">记得去“大白之家”登记，可免费得精美礼品哦~</view>
       </view>
       <view class="priceShow">
         <view class="coupon">{{filter.toInt(item.market_price-item.price)}}元券</view>
