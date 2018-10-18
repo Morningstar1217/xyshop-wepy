@@ -78,7 +78,7 @@
   line-height: 40rpx;
   overflow: hidden;
   font-size: 26rpx;
-  margin-bottom: 30rpx;
+  margin-bottom: 10rpx;
   margin-top: 10rpx;
 }
 
@@ -110,12 +110,12 @@
 }
 
 .priceNow {
+  margin-left: 10rpx;
   font-size: 26rpx;
   color: #d34353;
 }
 
 .priceAgo {
-  margin-left: 10rpx;
   font-size: 20rpx;
   text-decoration: line-through;
   color: #666;
@@ -183,12 +183,13 @@
       <view class="featuredName">{{item.title}}</view>
       <view class="goHongWrap">
         <view class="goHong">记得去“大白HONG登记哦~”</view>
+        <view class="goHong">免费得精美礼品~</view>
       </view>
       <view class="priceShow">
         <view class="coupon">{{filter.toInt(item.market_price-item.price)}}元券</view>
         <view class="priceWrap">
-          <view class="priceNow">￥{{item.price}}</view>
           <view class="priceAgo">￥{{item.market_price}}</view>
+          <view class="priceNow">￥{{item.price}}</view>
         </view>
       </view>
     </view>

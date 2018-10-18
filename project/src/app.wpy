@@ -24,12 +24,12 @@ export default class extends wepy.app {
   config = {
     pages: [
       'pages/index',
+      'pages/tutorial',
       'pages/quan',
       'pages/searchResult',
       'pages/fav',
       'pages/99sale',
-      'pages/search',
-      'pages/tutorial'
+      'pages/search'
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -37,6 +37,32 @@ export default class extends wepy.app {
       navigationBarTitleText: '大白微商城',
       navigationBarTextStyle: 'black',
       onReachBottomDistance: 50
+    },
+    tabBar: {
+      color: '#707070',
+      selectedColor: '#d34353',
+      backgroundColor: '#ffffff',
+      borderStyle: 'black',
+      list: [
+        {
+          pagePath: 'pages/index',
+          text: '首页',
+          iconPath: './images/icon/index (2).png',
+          selectedIconPath: './images/icon/index (1).png'
+        },
+        {
+          pagePath: 'pages/quan',
+          text: '找券',
+          iconPath: './images/icon/quan (2).png',
+          selectedIconPath: './images/icon/quan (1).png'
+        },
+        {
+          pagePath: 'pages/fav',
+          text: '收藏',
+          iconPath: './images/icon/main (2).png',
+          selectedIconPath: './images/icon/main (1).png'
+        }
+      ]
     }
   }
   constructor() {
@@ -55,8 +81,7 @@ export default class extends wepy.app {
     getListByKeyword: 'api.php/quan.tao/getListByKeyword',
     favs: [],
     shareProfile: '一个不允许你不省钱的小程序',
-    shareImg:
-      'http://pbn1t9k4c.bkt.clouddn.com/tbshareImg.jpg',
+    shareImg: 'http://pbn1t9k4c.bkt.clouddn.com/tbshareImg.jpg',
     sharePath: 'pages/index'
   }
 }

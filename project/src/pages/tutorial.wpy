@@ -2,17 +2,47 @@
 .tutorialImg {
   width: 100%;
 }
+.changeTut {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  background: #fff;
+}
+.lingquan,
+.dengji {
+  border-radius: 20rpx 20rpx 0 0;
+  width: 50%;
+  text-align: center;
+  color: #333;
+}
+
+.selected {
+  color: #fff;
+  background: #ffa499;
+}
 </style>
 
-<template>
+<template lang="wxml">
   <view class="container">
-    <image src="http://pbn1t9k4c.bkt.clouddn.com/jiaocheng.jpg" class="tutorialImg" mode="widthFix" />
+    <view class="changeTut">
+      <view class="lingquan {{tuto==='0'?'selected':''}}" @tap="change(0)">领券教程</view>
+      <view class="dengji {{tuto==='1'?'selected':''}}" @tap="change(1)">登记教程</view>
+    </view>
+    <image src="{{tuto==='0'?'http://pbn1t9k4c.bkt.clouddn.com/jiaocheng.jpg':''}}" class="tutorialImg" mode="widthFix" />
   </view>
 </template>
 
 <script>
 import wepy from 'wepy'
 export default class extends wepy.page {
+  data = {
+    tuto: '0'
+  }
   onShareAppMessage() {
     return {
       title: this.$parent.globalData.shareProfile,
@@ -21,6 +51,16 @@ export default class extends wepy.page {
       success: function(res) {},
       fail: function(res) {
         // 转发失败
+      }
+    }
+  }
+
+  methods = {
+    change(num) {
+      if (num === '0') {
+        this.tuto = '0'
+      } else {
+        this.tuto = '1'
       }
     }
   }

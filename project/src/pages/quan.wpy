@@ -46,8 +46,7 @@
   font-size: 28rpx;
   color: #fff;
   text-align: center;
-  background-image: linear-gradient(#ffb142, #ffb142),
-    linear-gradient(#e43333, #e43333);
+  background-image: linear-gradient(#ffb142, #ffb142), linear-gradient(#e43333, #e43333);
   background-blend-mode: normal, normal;
   background-color: transparent;
   border-radius: 0;
@@ -336,7 +335,7 @@
   <!-- 顶部banner图 -->
   <view class="header">
     <view class="searchWrap">
-      <input class="search" type="text" placeholder="输入关键词或商品链接" confirm-type="search" @confirm="search('{{inputValue}}')" @input="remSearch" focus="true" />
+      <input class="search" type="text" placeholder="输入关键词或商品标题" confirm-type="search" @confirm="search('{{inputValue}}')" @input="remSearch"/>
       <view class="searchBtn" @tap="search('{{inputValue}}')">搜索</view>
     </view>
   </view>
@@ -492,8 +491,7 @@ export default class extends wepy.page {
   }
 
   getHotSellCom() {
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getMiaoList
+    const url = this.$parent.globalData.host + this.$parent.globalData.getMiaoList
     wepy.request(url).then(res =>
       setTimeout(() => {
         this.hotSellCom = res.data.data.list

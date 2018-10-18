@@ -138,8 +138,7 @@ export default class extends wepy.page {
       key: 'historys',
       data: historys
     })
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
+    const url = this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
     wepy
       .request({
         url: url,

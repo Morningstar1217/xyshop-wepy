@@ -1,7 +1,4 @@
 <style>
-.container {
-  padding-bottom: 100rpx;
-}
 .header {
   width: 100%;
   height: 100rpx;
@@ -284,13 +281,13 @@ swiper-item {
     <!-- <navigator class="getCoupon" url="/pages/quan/quan">
       <image src="/images/coupon.png" class="couponImg" />
     </navigator> -->
-    <input type="text" class="search" placeholder="输入商品名称查找" @tap="toSearch" />
+    <input type="text" class="search" placeholder="输入关键词或商品标题" @confirm="search" @input="remSearch" />
   </view>
   <!-- 轮播图区域 -->
   <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="banner" indicator-color="#fff" indicator-active-color="#d34353">
     <!-- <block wx:for="{{imgUrls}}" wx:key="id"> -->
       <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbanner1.jpg')"></swiper-item>
-      <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbanner2.png')" @tap="showQr"></swiper-item>
+      <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbabber2-1.jpg')" @tap="showQr"></swiper-item>
     <!-- </block> -->
   </swiper>
   <!-- 分类 -->
@@ -372,7 +369,6 @@ swiper-item {
     <!-- 返回顶部 -->
     <view class="toTop" @tap="toTop" wx:if="{{showTop}}">︿</view>
   </view>
-  <tabbar></tabbar>
 </view>
 </template>
 
@@ -390,10 +386,7 @@ import Share from '../mixins/share'
 
 export default class extends wepy.page {
   data = {
-    imgUrls: [
-      'http://pbn1t9k4c.bkt.clouddn.com/Tbbanner1.jpg',
-      'http://pbn1t9k4c.bkt.clouddn.com/Tbbanner2.png'
-    ],
+    imgUrls: ['http://pbn1t9k4c.bkt.clouddn.com/Tbbanner1.jpg', 'http://pbn1t9k4c.bkt.clouddn.com/Tbbanner2.png'],
     menu: [],
     count: 0,
     menuFlag: true,
@@ -404,7 +397,8 @@ export default class extends wepy.page {
     showTop: false,
     filterCount: 0,
     price_h: true,
-    sort: 'latest'
+    sort: 'latest',
+    inputValue: ''
   }
 
   onLoad() {
@@ -423,6 +417,7 @@ export default class extends wepy.page {
       this.featuredComList = []
       this.filterCount = 0
       this.currentPage = 1
+      this.menuFlag = true
       this.loadingToast()
       this.getGoodsList(this.currentPage, this.count)
     },
@@ -448,8 +443,7 @@ export default class extends wepy.page {
     }
   }
   getMenu() {
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getcatelist
+    const url = this.$parent.globalData.host + this.$parent.globalData.getcatelist
     wepy.request(url).then(res =>
       setTimeout(() => {
         this.menu = res.data.data
@@ -458,8 +452,7 @@ export default class extends wepy.page {
     )
   }
   getGoodsList(page, cid, sort = 'latest') {
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+    const url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
     wepy
       .request({
         url: url,
@@ -478,8 +471,7 @@ export default class extends wepy.page {
       )
   }
   getMoreGoodsList(page, cid, sort) {
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getGoodsList
+    const url = this.$parent.globalData.host + this.$parent.globalData.getGoodsList
     wepy
       .request({
         url: url,
@@ -501,8 +493,7 @@ export default class extends wepy.page {
       )
   }
   getHotSellCom() {
-    const url =
-      this.$parent.globalData.host + this.$parent.globalData.getMiaoList
+    const url = this.$parent.globalData.host + this.$parent.globalData.getMiaoList
     wepy.request(url).then(res =>
       setTimeout(() => {
         this.hotSellCom = res.data.data.list
@@ -523,7 +514,6 @@ export default class extends wepy.page {
     this.currentPage = this.currentPage + 1
     this.getMoreGoodsList(this.currentPage, this.count, this.sort)
   }
-
   onShareAppMessage() {
     return {
       title: this.$parent.globalData.shareProfile,
@@ -535,7 +525,15 @@ export default class extends wepy.page {
       }
     }
   }
-
+  remSearch(e) {
+    this.inputValue = e.detail.value
+  }
+  search() {
+    var value = this.inputValue.length === 0 ? '女装' : this.inputValue
+    wepy.navigateTo({
+      url: './searchResult?value=' + value
+    })
+  }
   components = {
     tabbar: Tabbar,
     hotsale: Hotsale,
