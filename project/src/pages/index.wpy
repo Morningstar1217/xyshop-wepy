@@ -287,7 +287,7 @@ swiper-item {
   <swiper indicator-dots="true" autoplay="true" interval="5000" duration="500" class="banner" indicator-color="#fff" indicator-active-color="#d34353">
     <!-- <block wx:for="{{imgUrls}}" wx:key="id"> -->
       <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbanner1.jpg')"></swiper-item>
-      <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbabber2-1.jpg')" @tap="showQr"></swiper-item>
+      <swiper-item style="background-image:url('http://pbn1t9k4c.bkt.clouddn.com/Tbbabber2-2.jpg')" @tap="showQr"></swiper-item>
     <!-- </block> -->
   </swiper>
   <!-- 分类 -->

@@ -33,7 +33,7 @@
       <view class="lingquan {{tuto==='0'?'selected':''}}" @tap="change(0)">领券教程</view>
       <view class="dengji {{tuto==='1'?'selected':''}}" @tap="change(1)">登记教程</view>
     </view>
-    <image src="{{tuto==='0'?'http://pbn1t9k4c.bkt.clouddn.com/jiaocheng.jpg':''}}" class="tutorialImg" mode="widthFix" />
+    <image src="{{tuto==='0'?'http://pbn1t9k4c.bkt.clouddn.com/jiaocheng.jpg':'http://pbn1t9k4c.bkt.clouddn.com/jiaocheng2.jpg'}}" class="tutorialImg" mode="widthFix" />
   </view>
 </template>
 
