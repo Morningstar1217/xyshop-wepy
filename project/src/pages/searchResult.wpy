@@ -40,7 +40,7 @@
   <view class="container">
     <!-- 顶部搜索区 -->
     <view class="header">
-      <input type="text" class="search" placeholder="{{inputValue}}" @tap="toSearch" />
+      <input type="text" class="search" placeholder="{{inputValue}}" confirm-type="search" @confirm="search()" @input="remSearch" />
       <text class="cancel" @tap="returnIndex">取消</text>
     </view>
     <!-- 商品搜索结果区 -->
@@ -48,7 +48,7 @@
       <repeat for="{{featuredComList}}" key="index" index="index" item="item">
         <featuredCom :item="item" @getColChild.user="getCol" @goBuyChild.user="goBuy" :favPage="favPage"></featuredCom>
       </repeat>
-      <view class="noGoods" wx:if="{{nogoods}}">暂时没有商品~先看看别的吧~</view>
+      <view class="noGoods" wx:if="{{noGoods}}">暂时没有商品~先看看别的吧~</view>
       <!-- 返回顶部 -->
       <view class="toTop" @tap="toTop" wx:if="{{showTop}}">︿</view>
     </view>
@@ -69,6 +69,7 @@ export default class extends wepy.page {
     this.loadingToast()
     this.inputValue = options.value
     this.getGoodsList()
+    this.setFoot()
   }
 
   data = {
@@ -125,10 +126,22 @@ export default class extends wepy.page {
     },
     changeFilter(value) {
       this.changeFilter(value)
+    },
+    remSearch(e) {
+      this.inputValue = e.detail.value
+      this.$apply()
     }
   }
 
-  getGoodsList() {
+  search() {
+    this.loadingToast()
+    this.featuredComList = []
+    this.currentPage = 1
+    this.getGoodsList()
+    this.setFoot()
+  }
+
+  setFoot() {
     var historys = wepy.getStorageSync('historys')
     if (!historys) {
       historys = []
@@ -138,6 +151,9 @@ export default class extends wepy.page {
       key: 'historys',
       data: historys
     })
+  }
+
+  getGoodsList() {
     const url = this.$parent.globalData.host + this.$parent.globalData.getListByKeyword
     wepy
       .request({
@@ -155,11 +171,6 @@ export default class extends wepy.page {
           this.featuredComList = arr1
           this.hideToast()
           this.$apply()
-        }, 100)
-      )
-      .catch(
-        setTimeout(() => {
-          this.nogoods = true
         }, 100)
       )
   }
