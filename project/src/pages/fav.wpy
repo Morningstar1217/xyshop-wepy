@@ -267,7 +267,7 @@ export default class extends wepy.page {
     },
     preview: function() {
       wepy.previewImage({
-        urls: ['http://pbn1t9k4c.bkt.clouddn.com/tbqrcode.jpg']
+        urls: ['http://pbn1t9k4c.bkt.clouddn.com/tbcode2.jpg']
       })
     },
     goBuy(sku) {

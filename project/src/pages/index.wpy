@@ -438,7 +438,7 @@ export default class extends wepy.page {
     },
     showQr() {
       wepy.previewImage({
-        urls: ['http://pbn1t9k4c.bkt.clouddn.com/wxcode2.jpg']
+        urls: ['http://pbn1t9k4c.bkt.clouddn.com/tbcode1.jpg']
       })
     }
   }
